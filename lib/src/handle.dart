@@ -156,7 +156,7 @@ class _HandleState extends State<Handle> {
 
     // Ensure the list is not already in a reordering
     // state when initiating a new reorder operation.
-    if (_currentOffset.dx == 0.0) {
+    if (_pointer.dx == 0.0) {
     if (!_inDrag) {
       _onUp();
 
