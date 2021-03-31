@@ -156,15 +156,13 @@ class _HandleState extends State<Handle> {
 
     // Ensure the list is not already in a reordering
     // state when initiating a new reorder operation.
-    if (_pointer?.dx == 0.0) {
-      if (!_inDrag) {
-        _onUp();
+    if (!_inDrag) {
+      _onUp();
 
-        _handler = postDuration(
-          widget.delay,
-          _onDragStarted,
-        );
-      }
+      _handler = postDuration(
+        widget.delay,
+        _onDragStarted,
+      );
     }
   }
 
