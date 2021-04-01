@@ -85,6 +85,10 @@ class _HandleState extends State<Handle> {
     // initiate a new reorder.
     if (_inReorder) return;
 
+    if (_currentOffset! > 0.0) {
+      return;
+    }
+
     final moveDelta = (_downOffset - _currentOffset!).abs();
     if (moveDelta > 10.0) {
       return;
@@ -141,10 +145,8 @@ class _HandleState extends State<Handle> {
     // for now.
     return Listener(
       behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) =>
-          event.delta.dx == 0.0 ? _onDown(event.localPosition) : null,
-      onPointerMove: (event) =>
-          event.delta.dx == 0.0 ? _onUpdate(event.localPosition) : null,
+      onPointerDown: (event) => _onDown(event.localPosition),
+      onPointerMove: (event) => _onUpdate(event.localPosition),
       onPointerUp: (_) => _onUp(),
       onPointerCancel: (_) => _onUp(),
       child: widget.child,
