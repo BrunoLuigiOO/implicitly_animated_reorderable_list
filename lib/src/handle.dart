@@ -154,19 +154,17 @@ class _HandleState extends State<Handle> {
     _currentOffset = _offset(_pointer);
     _downOffset = _offset(_pointer);
 
-    if (position.dx != 0.0) {
-      return;
-    }
+    if (position.dx == 0.0) {
+      // Ensure the list is not already in a reordering
+      // state when initiating a new reorder operation.
+      if (!_inDrag) {
+        _onUp();
 
-    // Ensure the list is not already in a reordering
-    // state when initiating a new reorder operation.
-    if (!_inDrag) {
-      _onUp();
-
-      _handler = postDuration(
-        widget.delay,
-        _onDragStarted,
-      );
+        _handler = postDuration(
+          widget.delay,
+          _onDragStarted,
+        );
+      }
     }
   }
 
