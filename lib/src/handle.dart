@@ -142,8 +142,9 @@ class _HandleState extends State<Handle> {
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: (event) =>
-          event.delta.dx == 0.00000 ? _onDown(event.localPosition) : null,
-      onPointerMove: (event) => _onUpdate(event.localPosition),
+          event.delta.dx == 0.0 ? _onDown(event.localPosition) : null,
+      onPointerMove: (event) =>
+          event.delta.dx == 0.0 ? _onUpdate(event.localPosition) : null,
       onPointerUp: (_) => _onUp(),
       onPointerCancel: (_) => _onUp(),
       child: widget.child,
