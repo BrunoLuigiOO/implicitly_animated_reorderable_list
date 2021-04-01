@@ -66,7 +66,7 @@ class _HandleState extends State<Handle> {
   bool get _isVertical => _list?.isVertical ?? true;
 
   Offset? _pointer;
-  Offset? _position;
+  Offset? _position; // bloo
   late double _downOffset;
   double? _startOffset;
   double? _currentOffset;
@@ -87,8 +87,9 @@ class _HandleState extends State<Handle> {
     if (_inReorder) return;
 
     if (_position!.dx != 0.0) {
-      return;
-    }
+      // bloo
+      return; // bloo
+    } // bloo
 
     final moveDelta = (_downOffset - _currentOffset!).abs();
     if (moveDelta > 10.0) {
@@ -146,8 +147,10 @@ class _HandleState extends State<Handle> {
     // for now.
     return Listener(
       behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) => _onDown(event.localPosition, event.delta),
-      onPointerMove: (event) => _onUpdate(event.localPosition),
+      onPointerDown: (event) =>
+          _onDown(event.localPosition, event.delta), // bloo
+      onPointerMove: (event) =>
+          _onUpdate(event.localPosition, event.delta), // bloo
       onPointerUp: (_) => _onUp(),
       onPointerCancel: (_) => _onUp(),
       child: widget.child,
@@ -155,11 +158,12 @@ class _HandleState extends State<Handle> {
   }
 
   void _onDown(Offset pointer, Offset position) {
+    // bloo
     _pointer = pointer;
     _currentOffset = _offset(_pointer);
     _downOffset = _offset(_pointer);
 
-    _position = position;
+    _position = position; // bloo
 
     // Ensure the list is not already in a reordering
     // state when initiating a new reorder operation.
@@ -173,9 +177,12 @@ class _HandleState extends State<Handle> {
     }
   }
 
-  void _onUpdate(Offset pointer) {
+  void _onUpdate(Offset pointer, Offset position) {
+    // bloo
     _pointer = pointer;
     _currentOffset = _offset(_pointer);
+
+    _position = position; // bloo
 
     if (_inDrag && _inReorder) {
       _onDragUpdated(pointer);
