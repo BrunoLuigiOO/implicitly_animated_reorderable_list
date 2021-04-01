@@ -85,10 +85,6 @@ class _HandleState extends State<Handle> {
     // initiate a new reorder.
     if (_inReorder) return;
 
-    if (_pointer!.dx > 0.0) {
-      return;
-    }
-
     final moveDelta = (_downOffset - _currentOffset!).abs();
     if (moveDelta > 10.0) {
       return;
@@ -145,7 +141,7 @@ class _HandleState extends State<Handle> {
     // for now.
     return Listener(
       behavior: HitTestBehavior.translucent,
-      onPointerDown: (event) => _onDown(event.localPosition),
+      onPointerDown: (event) => _onDown(event.localPosition, event.delta),
       onPointerMove: (event) => _onUpdate(event.localPosition),
       onPointerUp: (_) => _onUp(),
       onPointerCancel: (_) => _onUp(),
@@ -153,10 +149,14 @@ class _HandleState extends State<Handle> {
     );
   }
 
-  void _onDown(Offset pointer) {
+  void _onDown(Offset pointer, Offset position) {
     _pointer = pointer;
     _currentOffset = _offset(_pointer);
     _downOffset = _offset(_pointer);
+
+    if (position.dx != 0.0) {
+      return;
+    }
 
     // Ensure the list is not already in a reordering
     // state when initiating a new reorder operation.
