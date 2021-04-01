@@ -85,7 +85,7 @@ class _HandleState extends State<Handle> {
     // initiate a new reorder.
     if (_inReorder) return;
 
-    if (_currentOffset! > 0.0) {
+    if (_pointer!.dx > 0.0) {
       return;
     }
 
