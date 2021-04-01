@@ -66,6 +66,7 @@ class _HandleState extends State<Handle> {
   bool get _isVertical => _list?.isVertical ?? true;
 
   Offset? _pointer;
+  Offset? _position;
   late double _downOffset;
   double? _startOffset;
   double? _currentOffset;
@@ -84,6 +85,10 @@ class _HandleState extends State<Handle> {
     // If the list is already in drag we dont want to
     // initiate a new reorder.
     if (_inReorder) return;
+
+    if (_position!.dx != 0.0) {
+      return;
+    }
 
     final moveDelta = (_downOffset - _currentOffset!).abs();
     if (moveDelta > 10.0) {
@@ -154,17 +159,17 @@ class _HandleState extends State<Handle> {
     _currentOffset = _offset(_pointer);
     _downOffset = _offset(_pointer);
 
-    if (position.dx == 0.0) {
-      // Ensure the list is not already in a reordering
-      // state when initiating a new reorder operation.
-      if (!_inDrag) {
-        _onUp();
+    _position = position;
 
-        _handler = postDuration(
-          widget.delay,
-          _onDragStarted,
-        );
-      }
+    // Ensure the list is not already in a reordering
+    // state when initiating a new reorder operation.
+    if (!_inDrag) {
+      _onUp();
+
+      _handler = postDuration(
+        widget.delay,
+        _onDragStarted,
+      );
     }
   }
 
